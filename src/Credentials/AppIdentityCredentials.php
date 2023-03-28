@@ -96,8 +96,9 @@ class AppIdentityCredentials extends CredentialsLoader implements
      */
     public static function onAppEngine()
     {
-        $appEngineProduction = isset($_SERVER['SERVER_SOFTWARE']) &&
-            0 === strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine');
+        $appEngineProduction =
+            (isset($_SERVER['SERVER_SOFTWARE']) && 0 === strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine')) ||
+            (isset($_SERVER['GAE_ENV']) && 0 === strpos($_SERVER['GAE_ENV'], 'standard'));
         if ($appEngineProduction) {
             return true;
         }
